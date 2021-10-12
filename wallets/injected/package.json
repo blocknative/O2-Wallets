@@ -1,0 +1,16 @@
+{
+  "name": "@o2/wallet-injected",
+  "version": "0.0.0",
+  "description": "<todo>",
+  "main": "dist/index.js",
+  "files": [
+    "dist",
+    "yarn.lock"
+  ],
+  "scripts": {
+    "build": "swc src -d dist",
+    "test": "ava"
+  },
+  "author": "Taylor Dawson",
+  "license": "MIT"
+}
