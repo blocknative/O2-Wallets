@@ -1,5 +1,5 @@
 // Maps a wallet name from the provider to its display name
-// Keys are the lowercased name derived from the`is` prop on the provider
+// Keys are the lower cased name derived from the `is` prop on the provider
 // Example: provider.isCoinbaseWallet -> coinbasewallet
 export const WALLET_NAMES: { [key: string]: string } = {
   alphawallet: 'AlphaWallet',

@@ -10,20 +10,28 @@ import {
   ProviderName
 } from './types'
 
-const mergeWallets = () => {}
-
 export default class InjectedWallet implements WalletModule {
   platforms: Platform[] = ['OSX', 'android', 'iOS', 'windows', 'linux']
   provider = getProvider()
   walletOptions?: WalletOptions
   private providerName: ProviderName | null
+
+  // No wallet detected, or the wallet that is detected the developer has disabled
   private disabled: boolean = false
+
+  private walletInfo: Promise<WalletInfo> | null = null
   constructor(options?: InjectedWalletOptions) {
-    this.walletOptions = options?.wallets
     this.providerName = this.provider ? getProviderName(this.provider) : null
-    const walletOption = this.walletOptions[this.providerName]
-    this.disabled =
-      !this.providerName || (this.providerName && walletOption === false)
+
+    if (this.providerName) {
+      const walletOption = options?.wallets?.[this.providerName]
+      this.walletInfo = _getInfo(this.providerName).then(
+        (info: WalletInfo) => ({
+          ...info,
+          ...walletOption
+        })
+      )
+    }
   }
 
   async getInterface<T>(
@@ -34,11 +42,6 @@ export default class InjectedWallet implements WalletModule {
   }
 
   async getInfo(): Promise<WalletInfo | null> {
-    if (!this.providerName) return null
-    let info = await _getInfo(this.providerName)
-    if (info) {
-      this.wallets?.[this.providerName]
-    }
-    return info
+    return this.walletInfo
   }
 }

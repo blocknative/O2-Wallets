@@ -16,17 +16,21 @@ export interface WalletModule {
 export type ProviderName = 'metamask' | 'detected'
 
 export type WalletOptions = {
-  [key in ProviderName]: Partial<WalletInfo>
+  [key in ProviderName]?: Partial<WalletInfo>
 }
 
-export interface WalletExclusions {
-  desktop?: boolean
-  mobile?: boolean
+export type WalletExclusions = {
+  [key in ProviderName]?:
+    | {
+        desktop?: boolean
+        mobile?: boolean
+      }
+    | boolean
 }
 
 export interface InjectedWalletOptions {
-  wallets?: WalletOptions[]
-  exclude?: WalletExclusions[]
+  wallets?: WalletOptions
+  exclude?: WalletExclusions
 }
 
 export type WalletInfo = {
