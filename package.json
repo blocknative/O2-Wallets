@@ -13,6 +13,7 @@
     "@ava/typescript": "^2.0.0",
     "@swc/cli": "^0.1.51",
     "@swc/core": "^1.2.92",
+    "@types/lodash.uniqby": "^4.7.6",
     "ava": "^3.15.0",
     "browser-env": "^3.3.0",
     "lerna": "^4.0.0",
@@ -24,7 +25,9 @@
   },
   "dependencies": {
     "@types/node": "^16.10.3",
+    "bowser": "^2.11.0",
     "ethers": "^5.4.7",
+    "lodash.uniqby": "^4.7.0",
     "rxjs": "^7.3.0"
   }
 }

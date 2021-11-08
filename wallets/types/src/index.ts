@@ -184,6 +184,7 @@ export interface SimpleEventEmitter {
   ): void
 }
 
+
 export type ConnectListener = (info: ProviderInfo) => void
 export type DisconnectListener = (error: ProviderRpcError) => void
 export type MessageListener = (message: ProviderMessage) => void

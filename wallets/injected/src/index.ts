@@ -1,47 +1,91 @@
-import { getProvider, getInfo as _getInfo, getProviderName } from './helpers'
-import {
-  Platform,
-  WalletInfo,
-  WalletInterface,
-  WalletInterfaceHelpers,
-  WalletModule,
+import standardWallets from './wallets'
+import uniqBy from 'lodash.uniqby'
+import type {
+  WalletInit,
   InjectedWalletOptions,
-  WalletOptions,
-  ProviderName
-} from './types'
+  CustomWindow
+} from '@o2/types'
+import { remove } from './helpers'
 
-export default class InjectedWallet implements WalletModule {
-  platforms: Platform[] = ['OSX', 'android', 'iOS', 'windows', 'linux']
-  provider = getProvider()
-  walletOptions?: WalletOptions
-  private providerName: ProviderName | null
+declare const window: CustomWindow
 
-  // No wallet detected, or the wallet that is detected the developer has disabled
-  private disabled: boolean = false
+export function injected(options: InjectedWalletOptions): WalletInit {
+  // @TODO - validate options
 
-  private walletInfo: Promise<WalletInfo> | null = null
-  constructor(options?: InjectedWalletOptions) {
-    this.providerName = this.provider ? getProviderName(this.provider) : null
+  return helpers => {
+    const { device } = helpers
+    const { wallets = [], exclude = {} } = options || {}
+    const allWallets = [...wallets, ...standardWallets]
+    const deduped = uniqBy(
+      allWallets,
+      ({ injectedNamespace, providerIdentityFlag }) =>
+        `${injectedNamespace}:${providerIdentityFlag}`
+    )
 
-    if (this.providerName) {
-      const walletOption = options?.wallets?.[this.providerName]
-      this.walletInfo = _getInfo(this.providerName).then(
-        (info: WalletInfo) => ({
-          ...info,
-          ...walletOption
-        })
-      )
+    const walletsWithSupportedFlag = deduped.map(wallet => {
+      const { label, platforms } = wallet
+      const walletExclusions = exclude[label]
+
+      const excludedWallet = walletExclusions === false
+
+      const excludedDevice =
+        typeof walletExclusions === 'object' &&
+        (walletExclusions?.includes(device.type) ||
+          walletExclusions.includes(device.os.name))
+
+      const invalidPlatform =
+        !platforms.includes('all') &&
+        !platforms.includes(device.type) &&
+        !platforms.includes(device.os.name)
+
+      const supportedWallet =
+        !excludedWallet && !excludedDevice && !invalidPlatform
+
+      return {
+        ...wallet,
+        supported: !!supportedWallet
+      }
+    })
+
+    let removeMetaMask = false
+
+    const validWallets = walletsWithSupportedFlag.filter(
+      ({ injectedNamespace, providerIdentityFlag, label }) => {
+        const provider = window[injectedNamespace] as CustomWindow['ethereum']
+        const walletExists = provider[providerIdentityFlag]
+
+        if (
+          walletExists &&
+          provider.isMetaMask &&
+          providerIdentityFlag !== 'isMetaMask' &&
+          label !== 'Detected Wallet'
+        ) {
+          removeMetaMask = true
+        }
+
+        return walletExists
+      }
+    )
+
+    if (validWallets.length) {
+      const moreThanOneWallet = validWallets.length > 1
+      // if more than one wallet, then remove detected wallet
+      return validWallets
+        .filter(
+          remove({
+            detected: moreThanOneWallet,
+            metamask: moreThanOneWallet && removeMetaMask
+          })
+        )
+        .map(({ label, getIcon, getInterface, supported }) => ({
+          label,
+          getIcon,
+          getInterface,
+          supported,
+          type: 'injected'
+        }))
     }
-  }
 
-  async getInterface<T>(
-    helpers: WalletInterfaceHelpers
-  ): Promise<WalletInterface<T> | null> {
-    if (this.provider) return null
-    return null
-  }
-
-  async getInfo(): Promise<WalletInfo | null> {
-    return this.walletInfo
+    return []
   }
 }
