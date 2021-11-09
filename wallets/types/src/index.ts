@@ -155,6 +155,15 @@ export interface SimpleEventEmitter {
       | ChainListener
       | AccountsListener
   ): void
+  addListener(
+    event: ProviderEvent,
+    listener:
+      | ConnectListener
+      | DisconnectListener
+      | MessageListener
+      | ChainListener
+      | AccountsListener
+  ): void
   once(
     event: ProviderEvent,
     listener:
@@ -183,7 +192,6 @@ export interface SimpleEventEmitter {
       | AccountsListener
   ): void
 }
-
 
 export type ConnectListener = (info: ProviderInfo) => void
 export type DisconnectListener = (error: ProviderRpcError) => void
@@ -278,6 +286,7 @@ export enum ProviderIdentityFlag {
   Binance = 'bbcSignTx',
   MetaMask = 'isMetaMask',
   Coinbase = 'isWalletLink',
+  Trust = 'isTrust',
   Detected = 'request'
 }
 
@@ -285,6 +294,7 @@ export enum ProviderLabel {
   Binance = 'Binance Smart Wallet',
   MetaMask = 'MetaMask',
   Coinbase = 'Coinbase Wallet',
+  Trust = 'Trust Wallet',
   Detected = 'Detected Wallet'
 }
 

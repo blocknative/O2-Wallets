@@ -57,10 +57,8 @@ export const createEIP1193Provider = (
     }
     if (requestPatch?.[method]) {
        if(params !== undefined) {
-         console.log('with params', params);
         requestPatch[method]?.(originalRequest, params)
        } else {
-        console.log('without params', params);
          // @ts-ignore
         requestPatch[method]?.(originalRequest)
        }

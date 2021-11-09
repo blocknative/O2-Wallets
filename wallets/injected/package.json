@@ -1,5 +1,5 @@
 {
-  "name": "@o2/wallet-injected",
+  "name": "@o2/injected-wallets",
   "version": "0.0.0",
   "description": "<todo>",
   "module": "dist/index.js",
