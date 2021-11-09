@@ -45,7 +45,7 @@ const binance = {
           window.BinanceChain.isUnlocked = true
           return accts
         }),
-      eth_chainId: async request =>
+      eth_chainId: request =>
         request({ method: 'eth_chainId' }).then(
           id => `0x${parseInt(id).toString(16)}`
         ),
@@ -69,7 +69,7 @@ const coinbase: InjectedWalletModule = {
   getIcon: async () => (await import('./icons/coinbase')).default,
   getInterface: async () => {
     const provider = window.ethereum as EIP1193Provider
-    const addListener = provider.addListener.bind(provider)
+    const addListener = provider.on.bind(provider)
     provider.addListener = (event, func) => {
       if (event === 'chainChanged') {
         addListener(event, chainId => {

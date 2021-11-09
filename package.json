@@ -2,12 +2,13 @@
   "name": "root",
   "private": true,
   "workspaces": [
-    "wallets/*"
+    "packages/*"
   ],
   "scripts": {
     "build": "lerna exec yarn build",
+    "dev": "lerna exec yarn dev",
     "test": "lerna exec yarn test",
-    "format": "prettier --write 'wallets/**/*.ts'"
+    "format": "prettier --write 'packages/**/*.ts'"
   },
   "devDependencies": {
     "@ava/typescript": "^2.0.0",

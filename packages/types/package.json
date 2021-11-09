@@ -1,7 +1,7 @@
 {
-  "name": "@o2/common",
+  "name": "@o2/types",
   "version": "0.0.1",
-  "description": "Resources common to all wallets",
+  "description": "Shared Typescript types",
   "module": "dist/index.js",
   "typings": "dist/index.d.ts",
   "files": [
@@ -11,10 +11,14 @@
   "scripts": {
     "build": "tsc",
     "dev": "tsc -w",
-    "test": "ava"
+    "test": "ava",
+    "prepare": "yarn build"
   },
   "author": "Taylor Dawson",
   "license": "MIT",
+  "dependencies": {
+    "@ethersproject/providers": "^5.5.0"
+  },
   "devDependencies": {
     "typescript": "^4.4.4"
   }

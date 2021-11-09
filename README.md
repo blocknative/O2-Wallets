@@ -8,14 +8,6 @@
 
 # Contributing
 
-## Adding new wallets
-
-```bash
-mkdir wallets/new-wallet
-cd wallets/new-wallet
-yarn init
-```
-
 ### Adding shared deps
 
 ```
@@ -24,6 +16,6 @@ yarn add dep-name -W
 
 <!----- Links ----->
 
-[injected-wallets]: ./wallets/injected
-[types-wallets]: ./wallets/types
-[common-wallets]: ./wallets/common
+[injected-wallets]: ./packages/injected
+[types-wallets]: ./packages/types
+[common-wallets]: ./packages/common

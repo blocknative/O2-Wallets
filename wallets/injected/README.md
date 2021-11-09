@@ -1,1 +1,0 @@
-# @o2/injected-wallets

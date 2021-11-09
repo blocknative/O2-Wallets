@@ -47,7 +47,6 @@ export const createEIP1193Provider = (
   const originalRequest = provider.request.bind(provider)
 
   const request: EIP1193Provider['request'] = ({ method, params }) => {
-    
     // If the request method is set to null this indicates this method is not supported
     if (requestPatch?.[method] === null) {
       throw new ProviderRpcError({
@@ -55,14 +54,14 @@ export const createEIP1193Provider = (
         message: `The Provider does not support the requested method: ${method}`
       })
     }
+
     if (requestPatch?.[method]) {
-       if(params !== undefined) {
-        requestPatch[method]?.(originalRequest, params)
-       } else {
-         // @ts-ignore
-        requestPatch[method]?.(originalRequest)
-       }
-         
+      if (params !== undefined) {
+        return requestPatch[method]?.(originalRequest, params)
+      } else {
+        // @ts-ignore
+        return requestPatch[method]?.(originalRequest)
+      }
     } else {
       return originalRequest?.({ method, params })
     }

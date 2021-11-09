@@ -1,6 +1,6 @@
 {
   "packages": [
-    "wallets/*"
+    "packages/*"
   ],
   "npmClient": "yarn",
   "useWorkspaces": true,
