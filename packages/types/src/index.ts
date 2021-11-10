@@ -1,5 +1,8 @@
 import type { ExternalProvider } from '@ethersproject/providers'
 
+/**
+ * A method that takes `WalletHelpers` and returns an initialised `WalletModule` or array of `WalletModule`s.
+ */
 export type WalletInit = (
   helpers: WalletHelpers
 ) => WalletModule | WalletModule[]
@@ -8,30 +11,17 @@ export type WalletHelpers = {
   device: Device
 }
 
-export type ProviderName = 'metamask' | 'detected'
-
-export type WalletInfo = {
-  // The display name of the wallet
-  name: string
-  // The wallet icon
-  icon: string
-}
-
-export type WalletOptions = {
-  [key in ProviderName]?: Partial<WalletInfo>
-}
-
-export interface ExcludedPlatforms {
-  desktop?: boolean
-  mobile?: boolean
-}
-
 export type WalletExclusions = {
+  // A provider label mapped to a list of excluded platforms or a boolean indicating if it should be included.
   [key in ProviderLabel | string]?: Platform[] | boolean
 }
 
 export interface InjectedWalletOptions {
+  // A list of injected wallets to include that are not included by default here: ./packages/injected/
   wallets?: InjectedWalletModule[]
+  // A mapping of a provider label to a list of excluded platforms
+  // or a boolean indicating if it should be included or not.
+  // By default all wallets listed in ./packages/injected/ are included add them to here to remove them.
   exclude?: WalletExclusions
 }
 
@@ -40,6 +30,7 @@ export type Device = {
   type: DeviceType
   browser: DeviceBrowser
 }
+
 export interface WalletModule {
   // The label of the wallet
   label: ProviderLabel | string
@@ -284,18 +275,22 @@ export type InjectedProvider = ExternalProvider &
  */
 export enum ProviderIdentityFlag {
   Binance = 'bbcSignTx',
-  MetaMask = 'isMetaMask',
   Coinbase = 'isWalletLink',
-  Trust = 'isTrust',
-  Detected = 'request'
+  Detected = 'request',
+  MetaMask = 'isMetaMask',
+  Opera = 'isOpera',
+  Status = 'isStatus',
+  Trust = 'isTrust'
 }
 
 export enum ProviderLabel {
   Binance = 'Binance Smart Wallet',
-  MetaMask = 'MetaMask',
   Coinbase = 'Coinbase Wallet',
-  Trust = 'Trust Wallet',
-  Detected = 'Detected Wallet'
+  Detected = 'Detected Wallet',
+  MetaMask = 'MetaMask',
+  Opera = 'Opera Wallet',
+  Status = 'Status Wallet',
+  Trust = 'Trust Wallet'
 }
 
 export enum ProviderRpcErrorCode {

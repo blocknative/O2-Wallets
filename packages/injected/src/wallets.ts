@@ -73,13 +73,12 @@ const coinbase: InjectedWalletModule = {
     provider.addListener = (event, func) => {
       if (event === 'chainChanged') {
         addListener(event, chainId => {
-          if (chainId === 'string') {
-            // @ts-ignore
-            func(`0x${parseInt(chainId).toString(16)}`)
-          }
+          // @ts-ignore
+          func(`0x${parseInt(chainId).toString(16)}`)
         })
       }
     }
+
     return { provider }
   },
   platforms: ['all']
@@ -108,6 +107,28 @@ const trust: InjectedWalletModule = {
   platforms: ['mobile']
 }
 
-const wallets = [metamask, binance, coinbase, detected, trust]
+const opera: InjectedWalletModule = {
+  label: ProviderLabel.Opera,
+  injectedNamespace: InjectedNameSpace.Ethereum,
+  providerIdentityFlag: ProviderIdentityFlag.Opera,
+  getIcon: async () => (await import('./icons/opera')).default,
+  getInterface: async () => ({
+    provider: window.ethereum as EIP1193Provider
+  }),
+  platforms: ['all']
+}
+
+const status: InjectedWalletModule = {
+  label: ProviderLabel.Status,
+  injectedNamespace: InjectedNameSpace.Ethereum,
+  providerIdentityFlag: ProviderIdentityFlag.Status,
+  getIcon: async () => (await import('./icons/status')).default,
+  getInterface: async () => ({
+    provider: window.ethereum as EIP1193Provider
+  }),
+  platforms: ['mobile']
+}
+
+const wallets = [metamask, binance, coinbase, detected, trust, opera, status]
 
 export default wallets

@@ -51,8 +51,10 @@ export function injected(options: InjectedWalletOptions): WalletInit {
 
     const validWallets = walletsWithSupportedFlag.filter(
       ({ injectedNamespace, providerIdentityFlag, label }) => {
+
         const provider = window[injectedNamespace] as CustomWindow['ethereum']
-        const walletExists = provider[providerIdentityFlag]
+
+        const walletExists = provider?.[providerIdentityFlag]
 
         if (
           walletExists &&
