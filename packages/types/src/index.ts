@@ -46,7 +46,7 @@ export interface WalletModule {
 }
 export interface InjectedWalletModule extends WalletModule {
   injectedNamespace: InjectedNameSpace
-  providerIdentityFlag: ProviderIdentityFlag | string
+  checkProviderIdentity: (provider: any) => boolean
   platforms: Platform[]
 }
 
@@ -238,7 +238,7 @@ export interface EIP1193Provider extends SimpleEventEmitter {
   request(args: EthBalanceRequest): Promise<Balance>
   request(args: EIP1102Request): Promise<ProviderAccounts>
   request(args: EIP3326Request): Promise<null>
-  request(args: EthChainIdRequest): Promise<string>
+  request(args: EthChainIdRequest): Promise<ChainId>
 }
 
 export interface MeetOneProvider extends ExternalProvider {

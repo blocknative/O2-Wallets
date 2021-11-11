@@ -1,26 +1,24 @@
 import standardWallets from './wallets'
 import uniqBy from 'lodash.uniqby'
-import type {
+import {
   WalletInit,
   InjectedWalletOptions,
-  CustomWindow
+  CustomWindow,
+  ProviderLabel
 } from '@o2/types'
 import { remove } from './helpers'
+import { validateWalletOptions } from './validation'
 
 declare const window: CustomWindow
 
 export function injected(options: InjectedWalletOptions): WalletInit {
-  // @TODO - validate options
+  validateWalletOptions(options)
 
   return helpers => {
     const { device } = helpers
     const { wallets = [], exclude = {} } = options || {}
     const allWallets = [...wallets, ...standardWallets]
-    const deduped = uniqBy(
-      allWallets,
-      ({ injectedNamespace, providerIdentityFlag }) =>
-        `${injectedNamespace}:${providerIdentityFlag}`
-    )
+    const deduped = uniqBy(allWallets, ({ label }) => `${label}`)
 
     const walletsWithSupportedFlag = deduped.map(wallet => {
       const { label, platforms } = wallet
@@ -50,16 +48,15 @@ export function injected(options: InjectedWalletOptions): WalletInit {
     let removeMetaMask = false
 
     const validWallets = walletsWithSupportedFlag.filter(
-      ({ injectedNamespace, providerIdentityFlag, label }) => {
-
+      ({ injectedNamespace, checkProviderIdentity, label }) => {
         const provider = window[injectedNamespace] as CustomWindow['ethereum']
 
-        const walletExists = provider?.[providerIdentityFlag]
+        const walletExists = checkProviderIdentity(provider)
 
         if (
           walletExists &&
           provider.isMetaMask &&
-          providerIdentityFlag !== 'isMetaMask' &&
+          label !== ProviderLabel.MetaMask &&
           label !== 'Detected Wallet'
         ) {
           removeMetaMask = true

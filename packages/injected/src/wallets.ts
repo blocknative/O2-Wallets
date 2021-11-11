@@ -6,7 +6,7 @@ import {
   InjectedWalletModule
 } from '@o2/types'
 import { ProviderIdentityFlag, ProviderLabel } from '@o2/types'
-
+import Bowser from 'bowser'
 import { createEIP1193Provider } from '@o2/common'
 
 declare const window: CustomWindow
@@ -14,7 +14,8 @@ declare const window: CustomWindow
 const metamask: InjectedWalletModule = {
   label: ProviderLabel.MetaMask,
   injectedNamespace: InjectedNameSpace.Ethereum,
-  providerIdentityFlag: ProviderIdentityFlag.MetaMask,
+  checkProviderIdentity: provider =>
+    !!provider?.[ProviderIdentityFlag.MetaMask],
   getIcon: async () =>
     delay(1000).then(async () => (await import('./icons/metamask')).default),
   getInterface: async () => ({
@@ -23,10 +24,10 @@ const metamask: InjectedWalletModule = {
   platforms: ['all']
 }
 
-const binance = {
+const binance: InjectedWalletModule = {
   label: ProviderLabel.Binance,
   injectedNamespace: InjectedNameSpace.Binance,
-  providerIdentityFlag: ProviderIdentityFlag.Binance,
+  checkProviderIdentity: provider => !!provider?.[ProviderIdentityFlag.Binance],
   getIcon: async () => (await import('./icons/binance')).default,
   getInterface: async () => {
     // We add this to the BinanceChain provider as there is currently
@@ -65,7 +66,8 @@ const binance = {
 const coinbase: InjectedWalletModule = {
   label: ProviderLabel.Coinbase,
   injectedNamespace: InjectedNameSpace.Ethereum,
-  providerIdentityFlag: ProviderIdentityFlag.Coinbase,
+  checkProviderIdentity: provider =>
+    !!provider?.[ProviderIdentityFlag.Coinbase],
   getIcon: async () => (await import('./icons/coinbase')).default,
   getInterface: async () => {
     const provider = window.ethereum as EIP1193Provider
@@ -87,7 +89,8 @@ const coinbase: InjectedWalletModule = {
 const detected: InjectedWalletModule = {
   label: ProviderLabel.Detected,
   injectedNamespace: InjectedNameSpace.Ethereum,
-  providerIdentityFlag: ProviderIdentityFlag.Detected,
+  checkProviderIdentity: provider =>
+    !!provider?.[ProviderIdentityFlag.Detected],
   getIcon: async () =>
     delay(1203).then(async () => (await import('./icons/detected')).default),
   getInterface: async () => ({
@@ -99,7 +102,7 @@ const detected: InjectedWalletModule = {
 const trust: InjectedWalletModule = {
   label: ProviderLabel.Trust,
   injectedNamespace: InjectedNameSpace.Ethereum,
-  providerIdentityFlag: ProviderIdentityFlag.Trust,
+  checkProviderIdentity: provider => !!provider?.[ProviderIdentityFlag.Trust],
   getIcon: async () => (await import('./icons/trust')).default,
   getInterface: async () => ({
     provider: window.ethereum as EIP1193Provider
@@ -110,10 +113,13 @@ const trust: InjectedWalletModule = {
 const opera: InjectedWalletModule = {
   label: ProviderLabel.Opera,
   injectedNamespace: InjectedNameSpace.Ethereum,
-  providerIdentityFlag: ProviderIdentityFlag.Opera,
+  checkProviderIdentity: () =>
+    Bowser.getParser(window.navigator.userAgent).getBrowserName() === 'Opera',
   getIcon: async () => (await import('./icons/opera')).default,
   getInterface: async () => ({
-    provider: window.ethereum as EIP1193Provider
+    provider: createEIP1193Provider(window.ethereum, {
+      eth_requestAccounts: async request => request({ method: 'eth_accounts' })
+    })
   }),
   platforms: ['all']
 }
@@ -121,7 +127,7 @@ const opera: InjectedWalletModule = {
 const status: InjectedWalletModule = {
   label: ProviderLabel.Status,
   injectedNamespace: InjectedNameSpace.Ethereum,
-  providerIdentityFlag: ProviderIdentityFlag.Status,
+  checkProviderIdentity: provider => !!provider?.[ProviderIdentityFlag.Status],
   getIcon: async () => (await import('./icons/status')).default,
   getInterface: async () => ({
     provider: window.ethereum as EIP1193Provider
