@@ -16,8 +16,7 @@ const metamask: InjectedWalletModule = {
   injectedNamespace: InjectedNameSpace.Ethereum,
   checkProviderIdentity: provider =>
     !!provider?.[ProviderIdentityFlag.MetaMask],
-  getIcon: async () =>
-    delay(1000).then(async () => (await import('./icons/metamask')).default),
+  getIcon: async () => (await import('./icons/metamask')).default,
   getInterface: async () => ({
     provider: window.ethereum as EIP1193Provider
   }),
@@ -91,8 +90,7 @@ const detected: InjectedWalletModule = {
   injectedNamespace: InjectedNameSpace.Ethereum,
   checkProviderIdentity: provider =>
     !!provider?.[ProviderIdentityFlag.Detected],
-  getIcon: async () =>
-    delay(1203).then(async () => (await import('./icons/detected')).default),
+  getIcon: async () => (await import('./icons/detected')).default,
   getInterface: async () => ({
     provider: window.ethereum as EIP1193Provider
   }),
