@@ -20,6 +20,3 @@ export const remove =
       (label === ProviderLabel.Detected && detected) ||
       (label === ProviderLabel.MetaMask && metamask)
     )
-
-export const delay = (time: number): Promise<undefined> =>
-  new Promise<undefined>(resolve => setTimeout(resolve, time))

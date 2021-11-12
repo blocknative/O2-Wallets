@@ -18,5 +18,8 @@
   "license": "MIT",
   "devDependencies": {
     "typescript": "^4.4.4"
+  },
+  "dependencies": {
+    "@o2/types": "^0.0.1"
   }
 }

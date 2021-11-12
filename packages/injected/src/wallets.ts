@@ -1,4 +1,3 @@
-import { delay } from './helpers'
 import {
   CustomWindow,
   EIP1193Provider,
