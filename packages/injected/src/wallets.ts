@@ -127,11 +127,231 @@ const status: InjectedWalletModule = {
   checkProviderIdentity: provider => !!provider?.[ProviderIdentityFlag.Status],
   getIcon: async () => (await import('./icons/status')).default,
   getInterface: async () => ({
-    provider: window.ethereum as EIP1193Provider
+    provider: window.ethereum
   }),
   platforms: ['mobile']
 }
 
-const wallets = [metamask, binance, coinbase, detected, trust, opera, status]
+const alphawallet: InjectedWalletModule = {
+  label: ProviderLabel.AlphaWallet,
+  injectedNamespace: InjectedNameSpace.Ethereum,
+  checkProviderIdentity: provider =>
+    !!provider?.[ProviderIdentityFlag.AlphaWallet],
+  getIcon: async () => (await import('./icons/alphawallet')).default,
+  getInterface: async () => ({
+    provider: window.ethereum
+  }),
+  platforms: ['mobile']
+}
+
+const atoken: InjectedWalletModule = {
+  label: ProviderLabel.AToken,
+  injectedNamespace: InjectedNameSpace.Ethereum,
+  checkProviderIdentity: provider => !!provider?.[ProviderIdentityFlag.AToken],
+  getIcon: async () => (await import('./icons/atoken')).default,
+  getInterface: async () => ({
+    provider: window.ethereum
+  }),
+  platforms: ['mobile']
+}
+
+const bitpie: InjectedWalletModule = {
+  label: ProviderLabel.Bitpie,
+  injectedNamespace: InjectedNameSpace.Ethereum,
+  checkProviderIdentity: provider => !!provider?.[ProviderIdentityFlag.Bitpie],
+  getIcon: async () => (await import('./icons/bitpie')).default,
+  getInterface: async () => ({
+    provider: window.ethereum
+  }),
+  platforms: ['mobile']
+}
+
+const blankwallet: InjectedWalletModule = {
+  label: ProviderLabel.BlankWallet,
+  injectedNamespace: InjectedNameSpace.Ethereum,
+  checkProviderIdentity: provider =>
+    !!provider?.[ProviderIdentityFlag.BlankWallet],
+  getIcon: async () => (await import('./icons/blankwallet')).default,
+  getInterface: async () => ({
+    provider: window.ethereum
+  }),
+  platforms: ['desktop']
+}
+
+const dcent: InjectedWalletModule = {
+  label: ProviderLabel.Dcent,
+  injectedNamespace: InjectedNameSpace.Ethereum,
+  checkProviderIdentity: provider => !!provider?.[ProviderIdentityFlag.Dcent],
+  getIcon: async () => (await import('./icons/dcent')).default,
+  getInterface: async () => ({
+    provider: window.ethereum
+  }),
+  platforms: ['mobile']
+}
+
+const frame: InjectedWalletModule = {
+  label: ProviderLabel.Frame,
+  injectedNamespace: InjectedNameSpace.Ethereum,
+  checkProviderIdentity: provider => !!provider?.[ProviderIdentityFlag.Frame],
+  getIcon: async () => (await import('./icons/frame')).default,
+  getInterface: async () => ({
+    provider: window.ethereum
+  }),
+  platforms: ['desktop']
+}
+
+const huobiwallet: InjectedWalletModule = {
+  label: ProviderLabel.HuobiWallet,
+  injectedNamespace: InjectedNameSpace.Ethereum,
+  checkProviderIdentity: provider =>
+    !!provider?.[ProviderIdentityFlag.HuobiWallet],
+  getIcon: async () => (await import('./icons/huobiwallet')).default,
+  getInterface: async () => ({
+    provider: window.ethereum
+  }),
+  platforms: ['mobile']
+}
+
+const hyperpay: InjectedWalletModule = {
+  label: ProviderLabel.HyperPay,
+  injectedNamespace: InjectedNameSpace.Ethereum,
+  checkProviderIdentity: provider =>
+    !!provider?.[ProviderIdentityFlag.HyperPay],
+  getIcon: async () => (await import('./icons/hyperpay')).default,
+  getInterface: async () => ({
+    provider: window.ethereum
+  }),
+  platforms: ['mobile']
+}
+
+const imtoken: InjectedWalletModule = {
+  label: ProviderLabel.ImToken,
+  injectedNamespace: InjectedNameSpace.Ethereum,
+  checkProviderIdentity: provider => !!provider?.[ProviderIdentityFlag.ImToken],
+  getIcon: async () => (await import('./icons/imtoken')).default,
+  getInterface: async () => ({
+    provider: window.ethereum
+  }),
+  platforms: ['mobile']
+}
+
+const liquality: InjectedWalletModule = {
+  label: ProviderLabel.Liquality,
+  injectedNamespace: InjectedNameSpace.Ethereum,
+  checkProviderIdentity: provider =>
+    !!provider?.[ProviderIdentityFlag.Liquality],
+  getIcon: async () => (await import('./icons/liquality')).default,
+  getInterface: async () => ({
+    provider: window.ethereum
+  }),
+  platforms: ['desktop']
+}
+
+const meetone: InjectedWalletModule = {
+  label: ProviderLabel.MeetOne,
+  injectedNamespace: InjectedNameSpace.Ethereum,
+  checkProviderIdentity: provider =>
+    provider?.[ProviderIdentityFlag.MeetOne] === 'MEETONE',
+  getIcon: async () => (await import('./icons/meetone')).default,
+  getInterface: async () => ({
+    provider: window.ethereum
+  }),
+  platforms: ['mobile']
+}
+
+const mykey: InjectedWalletModule = {
+  label: ProviderLabel.MyKey,
+  injectedNamespace: InjectedNameSpace.Ethereum,
+  checkProviderIdentity: provider => !!provider?.[ProviderIdentityFlag.MyKey],
+  getIcon: async () => (await import('./icons/mykey')).default,
+  getInterface: async () => ({
+    provider: window.ethereum
+  }),
+  platforms: ['mobile']
+}
+
+const ownbit: InjectedWalletModule = {
+  label: ProviderLabel.OwnBit,
+  injectedNamespace: InjectedNameSpace.Ethereum,
+  checkProviderIdentity: provider => !!provider?.[ProviderIdentityFlag.OwnBit],
+  getIcon: async () => (await import('./icons/ownbit')).default,
+  getInterface: async () => ({
+    provider: window.ethereum
+  }),
+  platforms: ['mobile']
+}
+
+const tokenpocket: InjectedWalletModule = {
+  label: ProviderLabel.TokenPocket,
+  injectedNamespace: InjectedNameSpace.Ethereum,
+  checkProviderIdentity: provider =>
+    !!provider?.[ProviderIdentityFlag.TokenPocket],
+  getIcon: async () => (await import('./icons/tokenpocket')).default,
+  getInterface: async () => ({
+    provider: window.ethereum
+  }),
+  platforms: ['all']
+}
+
+const tp: InjectedWalletModule = {
+  label: ProviderLabel.TP,
+  injectedNamespace: InjectedNameSpace.Ethereum,
+  checkProviderIdentity: provider => !!provider?.[ProviderIdentityFlag.TP],
+  getIcon: async () => (await import('./icons/tp')).default,
+  getInterface: async () => ({
+    provider: window.ethereum
+  }),
+  platforms: ['mobile']
+}
+
+const walletio: InjectedWalletModule = {
+  label: ProviderLabel.WalletIo,
+  injectedNamespace: InjectedNameSpace.Ethereum,
+  checkProviderIdentity: provider =>
+    !!provider?.[ProviderIdentityFlag.WalletIo],
+  getIcon: async () => (await import('./icons/walletio')).default,
+  getInterface: async () => ({
+    provider: window.ethereum
+  }),
+  platforms: ['mobile']
+}
+
+const xdefi: InjectedWalletModule = {
+  label: ProviderLabel.XDEFI,
+  injectedNamespace: InjectedNameSpace.Ethereum,
+  checkProviderIdentity: provider => !!provider?.[ProviderIdentityFlag.XDEFI],
+  getIcon: async () => (await import('./icons/xdefi')).default,
+  getInterface: async () => ({
+    provider: (window as any)?.xfi?.ethereum
+  }),
+  platforms: ['all']
+}
+
+const wallets = [
+  metamask,
+  binance,
+  coinbase,
+  detected,
+  trust,
+  opera,
+  status,
+  alphawallet,
+  atoken,
+  bitpie,
+  blankwallet,
+  dcent,
+  frame,
+  huobiwallet,
+  hyperpay,
+  imtoken,
+  liquality,
+  meetone,
+  mykey,
+  ownbit,
+  tokenpocket,
+  tp,
+  walletio,
+  xdefi
+]
 
 export default wallets

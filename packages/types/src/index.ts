@@ -274,23 +274,56 @@ export type InjectedProvider = ExternalProvider &
  * that uniquely identifies that provider
  */
 export enum ProviderIdentityFlag {
+  AlphaWallet = 'isAlphaWallet',
+  AToken = 'isAToken',
   Binance = 'bbcSignTx',
+  Bitpie = 'isBitpie',
+  BlankWallet = 'isBlank',
   Coinbase = 'isWalletLink',
   Detected = 'request',
+  Dcent = 'isDcentWallet',
+  Frame = 'isFrame',
+  HuobiWallet = 'isHbWallet',
+  HyperPay = 'isHyperPay',
+  ImToken = 'isImToken',
+  Liquality = 'isLiquality',
+  MeetOne = 'wallet',
   MetaMask = 'isMetaMask',
-  Opera = 'isOpera',
+  MyKey = 'isMYKEY',
+  OwnBit = 'isOwnbit',
   Status = 'isStatus',
-  Trust = 'isTrust'
+  Trust = 'isTrust',
+  TokenPocket = 'isTokenPocket',
+  TP = 'isTp',
+  WalletIo = 'isWalletIO',
+  XDEFI = 'isXDEFI'
 }
 
 export enum ProviderLabel {
+  AlphaWallet = 'AlphaWallet',
+  AToken = 'AToken',
   Binance = 'Binance Smart Wallet',
+  Bitpie = 'Bitpie',
+  BlankWallet = 'BlankWallet',
   Coinbase = 'Coinbase Wallet',
+  Dcent = "D'CENT",
   Detected = 'Detected Wallet',
+  Frame = 'Frame',
+  HuobiWallet = 'Huobi Wallet',
+  HyperPay = 'HyperPay',
+  ImToken = 'imToken',
+  Liquality = 'Liquality',
+  MeetOne = 'MeetOne',
   MetaMask = 'MetaMask',
+  MyKey = 'MyKey',
   Opera = 'Opera Wallet',
+  OwnBit = 'OwnBit',
   Status = 'Status Wallet',
-  Trust = 'Trust Wallet'
+  Trust = 'Trust Wallet',
+  TokenPocket = 'TokenPocket',
+  TP = 'TP Wallet',
+  WalletIo = 'Wallet.io',
+  XDEFI = 'XDEFI Wallet'
 }
 
 export enum ProviderRpcErrorCode {

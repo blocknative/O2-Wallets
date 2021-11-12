@@ -6,7 +6,7 @@
   ],
   "scripts": {
     "build": "lerna exec yarn build",
-    "dev": "lerna exec yarn dev",
+    "dev": "lerna exec --parallel -- yarn dev",
     "test": "lerna exec yarn test",
     "format": "prettier --write 'packages/**/*.ts'"
   },
