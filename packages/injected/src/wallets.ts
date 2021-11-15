@@ -102,7 +102,9 @@ const trust: InjectedWalletModule = {
   checkProviderIdentity: provider => !!provider?.[ProviderIdentityFlag.Trust],
   getIcon: async () => (await import('./icons/trust')).default,
   getInterface: async () => ({
-    provider: window.ethereum as EIP1193Provider
+    provider: createEIP1193Provider(window.ethereum, {
+      eth_getBalance: null
+    })
   }),
   platforms: ['mobile']
 }
@@ -139,7 +141,9 @@ const alphawallet: InjectedWalletModule = {
     !!provider?.[ProviderIdentityFlag.AlphaWallet],
   getIcon: async () => (await import('./icons/alphawallet')).default,
   getInterface: async () => ({
-    provider: window.ethereum
+    provider: createEIP1193Provider(window.ethereum, {
+      eth_getBalance: null
+    })
   }),
   platforms: ['mobile']
 }
@@ -207,7 +211,9 @@ const huobiwallet: InjectedWalletModule = {
     !!provider?.[ProviderIdentityFlag.HuobiWallet],
   getIcon: async () => (await import('./icons/huobiwallet')).default,
   getInterface: async () => ({
-    provider: window.ethereum
+    provider: createEIP1193Provider(window.ethereum, {
+      eth_getBalance: null
+    })
   }),
   platforms: ['mobile']
 }
@@ -230,7 +236,9 @@ const imtoken: InjectedWalletModule = {
   checkProviderIdentity: provider => !!provider?.[ProviderIdentityFlag.ImToken],
   getIcon: async () => (await import('./icons/imtoken')).default,
   getInterface: async () => ({
-    provider: window.ethereum
+    provider: createEIP1193Provider(window.ethereum, {
+      eth_getBalance: null
+    })
   }),
   platforms: ['mobile']
 }
@@ -265,7 +273,9 @@ const mykey: InjectedWalletModule = {
   checkProviderIdentity: provider => !!provider?.[ProviderIdentityFlag.MyKey],
   getIcon: async () => (await import('./icons/mykey')).default,
   getInterface: async () => ({
-    provider: window.ethereum
+    provider: createEIP1193Provider(window.ethereum, {
+      eth_getBalance: null
+    })
   }),
   platforms: ['mobile']
 }
@@ -294,9 +304,9 @@ const tokenpocket: InjectedWalletModule = {
 }
 
 const tp: InjectedWalletModule = {
-  label: ProviderLabel.TP,
+  label: ProviderLabel.Tp,
   injectedNamespace: InjectedNameSpace.Ethereum,
-  checkProviderIdentity: provider => !!provider?.[ProviderIdentityFlag.TP],
+  checkProviderIdentity: provider => !!provider?.[ProviderIdentityFlag.Tp],
   getIcon: async () => (await import('./icons/tp')).default,
   getInterface: async () => ({
     provider: window.ethereum
@@ -311,15 +321,17 @@ const walletio: InjectedWalletModule = {
     !!provider?.[ProviderIdentityFlag.WalletIo],
   getIcon: async () => (await import('./icons/walletio')).default,
   getInterface: async () => ({
-    provider: window.ethereum
+    provider: createEIP1193Provider(window.ethereum, {
+      eth_getBalance: null
+    })
   }),
   platforms: ['mobile']
 }
 
 const xdefi: InjectedWalletModule = {
-  label: ProviderLabel.XDEFI,
+  label: ProviderLabel.Xdefi,
   injectedNamespace: InjectedNameSpace.Ethereum,
-  checkProviderIdentity: provider => !!provider?.[ProviderIdentityFlag.XDEFI],
+  checkProviderIdentity: provider => !!provider?.[ProviderIdentityFlag.Xdefi],
   getIcon: async () => (await import('./icons/xdefi')).default,
   getInterface: async () => ({
     provider: (window as any)?.xfi?.ethereum

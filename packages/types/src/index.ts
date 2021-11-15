@@ -294,9 +294,9 @@ export enum ProviderIdentityFlag {
   Status = 'isStatus',
   Trust = 'isTrust',
   TokenPocket = 'isTokenPocket',
-  TP = 'isTp',
+  Tp = 'isTp',
   WalletIo = 'isWalletIO',
-  XDEFI = 'isXDEFI'
+  Xdefi = 'isXDEFI'
 }
 
 export enum ProviderLabel {
@@ -321,9 +321,9 @@ export enum ProviderLabel {
   Status = 'Status Wallet',
   Trust = 'Trust Wallet',
   TokenPocket = 'TokenPocket',
-  TP = 'TP Wallet',
+  Tp = 'TP Wallet',
   WalletIo = 'Wallet.io',
-  XDEFI = 'XDEFI Wallet'
+  Xdefi = 'XDEFI Wallet'
 }
 
 export enum ProviderRpcErrorCode {
